@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useToast } from '../components/Toast';
 import { Play, Pause, RotateCcw, Zap, Truck, CheckCircle2, Clock, AlertTriangle, Bell, X } from 'lucide-react';
-import { demoGateEvents, demoDeliverySlots, demoVetChecks, demoOrders } from '../shared';
+import { demoGateEvents, demoDeliverySlots, demoVetChecks, demoOrders, cn } from '../shared';
 import { useSocket } from '../hooks/useSocket';
 
 const DEMO_SCENARIOS = [
