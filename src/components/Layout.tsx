@@ -1,8 +1,9 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { cn, getRoleLabel } from '../shared';
-import { LogOut, Menu, X, Store, User, Truck, Shield, Stethoscope, Package, Building2, Smartphone } from 'lucide-react';
-import { useState } from 'react';
+import { LogOut, Menu, X, Store, User, Truck, Shield, Stethoscope, Package, Building2, Smartphone, Zap } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { DemoController } from './DemoController';
 
 const roleIcons: Record<string, any> = {
   buyer: Smartphone,
@@ -27,6 +28,19 @@ export function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showDemoController, setShowDemoController] = useState(false);
+
+  // Ctrl+Shift+D to toggle demo controller
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+        e.preventDefault();
+        setShowDemoController(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   if (!user) return <Outlet />;
 
@@ -83,6 +97,13 @@ export function Layout() {
                 <span className="text-xs font-medium text-gray-700">{getRoleLabel(user.role)}</span>
               </div>
               <button
+                onClick={() => setShowDemoController(true)}
+                className="p-2 rounded-lg text-gray-500 hover:text-purple-600 hover:bg-purple-50 transition-colors"
+                aria-label="Демо-контроллер (Ctrl+Shift+D)"
+              >
+                <Zap className="w-5 h-5 text-purple-600" />
+              </button>
+              <button
                 onClick={logout}
                 className="p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors"
                 aria-label="Выйти"
@@ -136,6 +157,9 @@ export function Layout() {
       <main className="flex-1 max-w-screen-xl w-full mx-auto px-4 py-4 pb-20">
         <Outlet />
       </main>
+
+      {/* Demo Controller */}
+      <DemoController isOpen={showDemoController} onClose={() => setShowDemoController(false)} />
     </div>
   );
 }
