@@ -164,7 +164,7 @@ export function DemoController({ isOpen, onClose }: { isOpen: boolean; onClose: 
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-medium text-gray-900">Лог событий</h4>
                 <span className="text-xs text-gray-500">{simulatedEvents.length} событий</span>
-              </h4>
+              </div>
               <div className="max-h-48 overflow-y-auto space-y-1">
                 {simulatedEvents.map((event, i) => (
                   <div key={i} className="text-xs p-2 bg-gray-50 rounded-lg font-mono text-gray-700 animate-fade-in">
