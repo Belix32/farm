@@ -5,6 +5,7 @@ import { App } from './App';
 import { AuthProvider } from './hooks/useAuth';
 import { CartProvider } from './hooks/useCart';
 import { SocketProvider } from './hooks/useSocket';
+import { ToastProvider } from './components/Toast';
 import './index.css';
 
 // Register MSW in development
@@ -25,7 +26,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <AuthProvider>
         <CartProvider>
           <SocketProvider>
-            <App />
+            <ToastProvider>
+              <App />
+            </ToastProvider>
           </SocketProvider>
         </CartProvider>
       </AuthProvider>
